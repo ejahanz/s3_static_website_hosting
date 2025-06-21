@@ -3,7 +3,7 @@ variable "aws_region" {
 }
 
 variable "bucket_name" {
-  description = "Globally unique bucket name"
+  description = "s3-static-site-bucket-12345"
   type        = string
 }
 
