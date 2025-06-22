@@ -3,11 +3,9 @@ variable "aws_region" {
 }
 
 variable "bucket_name" {
-  description = "s3-static-site-bucket-12345"
-  type        = string
+  default = "cloudkraft-site" # Must be globally unique if not using regional endpoints
 }
 
 variable "domain_name" {
-  description = "The domain name to serve the website"
-  type        = string
+  default = "cloudkraft.nz"
 }

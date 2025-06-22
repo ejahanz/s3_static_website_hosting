@@ -75,22 +75,30 @@ resource "aws_acm_certificate" "cert" {
   }
 }
 
-resource "aws_route53_record" "cert_validation" {
-  name    = aws_acm_certificate.cert.domain_validation_options[0].resource_record_name
-  type    = aws_acm_certificate.cert.domain_validation_options[0].resource_record_type
-  zone_id = data.aws_route53_zone.primary.zone_id
-  records = [aws_acm_certificate.cert.domain_validation_options[0].resource_record_value]
-  ttl     = 60
-}
-
 resource "aws_acm_certificate_validation" "cert" {
   certificate_arn         = aws_acm_certificate.cert.arn
-  validation_record_fqdns = [aws_route53_record.cert_validation.fqdn]
+  validation_record_fqdns = [for record in aws_route53_record.cert_validation : record.fqdn]
+}
+
+resource "aws_route53_record" "cert_validation" {
+  for_each = {
+    for dvo in aws_acm_certificate.cert.domain_validation_options : dvo.domain_name => {
+      name   = dvo.resource_record_name
+      type   = dvo.resource_record_type
+      record = dvo.resource_record_value
+    }
+  }
+
+  name    = each.value.name
+  type    = each.value.type
+  zone_id = data.aws_route53_zone.primary.zone_id
+  ttl     = 60
+  records = [each.value.record]
 }
 
 resource "aws_cloudfront_distribution" "cdn" {
   origin {
-    domain_name = aws_s3_bucket.website.website_endpoint
+    domain_name = "${aws_s3_bucket.website.bucket}.s3-website.${var.aws_region}.amazonaws.com"
     origin_id   = "s3-static-site"
 
     custom_origin_config {
