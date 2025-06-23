@@ -1,11 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Hello from the Cloud</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cloudkraft.nz</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+      color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5em;
+      animation: slideIn 1s ease-out forwards;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 2em;
+      animation: fadeIn 2s ease-out forwards;
+    }
+
+    .logo {
+      width: 120px;
+      margin-bottom: 1rem;
+      animation: pulse 3s infinite;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    a {
+      padding: 0.75em 1.5em;
+      border: 2px solid #61dafb;
+      border-radius: 30px;
+      text-decoration: none;
+      color: #61dafb;
+      transition: all 0.3s ease;
+    }
+
+    a:hover {
+      background-color: #61dafb;
+      color: #1e1e2f;
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome to my site!</h1>
-  <p>This static site is served securely via S3 + CloudFront + HTTPS 🚀</p>
+  <img class="logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" alt="cloudkraft logo">
+  <h1>Welcome to cloudkraft.nz</h1>
+  <p>Your projects. Your cloud. One sharp domain.</p>
+  <a href="mailto:erfan@cloudkraft.nz">Let’s Connect</a>
 </body>
 </html>
