@@ -170,3 +170,15 @@ resource "aws_route53_record" "root_alias" {
     evaluate_target_health = false
   }
 }
+
+resource "null_resource" "invalidate_cloudfront" {
+  triggers = {
+    always_run = timestamp()
+  }
+
+  provisioner "local-exec" {
+    command = "aws cloudfront create-invalidation --distribution-id ${aws_cloudfront_distribution.cdn.id} --paths /index.html"
+  }
+
+  depends_on = [aws_cloudfront_distribution.cdn]
+}
