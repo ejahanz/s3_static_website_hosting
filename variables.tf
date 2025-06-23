@@ -7,5 +7,5 @@ variable "bucket_name" {
 }
 
 variable "domain_name" {
-  default = "cloudkraft.n"
+  default = "cloudkraft.nz"
 }
