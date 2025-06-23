@@ -1,9 +1,9 @@
 # Architecture Overview:
 - 🪣 S3 Bucket with static site hosting
-- 🌐 Route 53 Hosted Zone for your domain
+- 🌐 Route 53 Hosted Zone for domain cloudkraft.nz
 - 🔐 ACM Certificate (for HTTPS)
 - ☁️ CloudFront Distribution (for CDN + SSL)
-- 🧭 Route 53 Record Set pointing your domain to CloudFront
+- 🧭 Route 53 Record Set pointing the cloudkraft.nz domain to CloudFront
 
 # 🧱 Terraform Directory Structure
 static-site/
