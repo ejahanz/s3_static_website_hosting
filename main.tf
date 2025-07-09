@@ -118,12 +118,15 @@ resource "aws_cloudfront_distribution" "cdn" {
       origin_protocol_policy = "http-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
+   
   }
+  
 
   enabled             = true
   is_ipv6_enabled     = true
   default_root_object = "index.html"
   aliases             = [var.domain_name]
+  web_acl_id          = aws_wafv2_web_acl.cloudfront_waf.arn
 
   default_cache_behavior {
     allowed_methods        = ["GET", "HEAD"]
@@ -137,6 +140,7 @@ resource "aws_cloudfront_distribution" "cdn" {
         forward = "none"
       }
     }
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.security_headers_policy.id
   }
 
   viewer_certificate {
@@ -149,7 +153,8 @@ resource "aws_cloudfront_distribution" "cdn" {
 
   restrictions {
     geo_restriction {
-      restriction_type = "none"
+      restriction_type = "whitelist"
+      locations        = ["NZ"]
     }
   }
 
